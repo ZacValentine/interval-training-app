@@ -1,0 +1,75 @@
+import random
+import time
+from distutils.util import strtobool
+tasks = []
+counterAskForTasks = 1
+counterSpecificTask = -1
+taskNum = 1
+taskCounter = 0
+
+ # functions___________________________________________
+def askForTasks():
+    print("Task", taskNum, end = ": ")
+    tasks.append(input())
+
+def randomTask():
+    choice = random.choice(tasks)
+    print(choice,"for", timeBetweenTasks,"seconds")
+    time.sleep(timeBetweenTasks)
+
+    if(breakInterval == 1):
+        print("BREAK FOR", timeBetweenTasks, "seconds")
+        time.sleep(timeBetweenTasks)
+def specificTask(counter):
+
+    print(tasks[counter], "for", timeBetweenTasks, "seconds")
+    time.sleep(timeBetweenTasks)
+
+    if(breakInterval == 1):
+        print("BREAK FOR", timeBetweenTasks, "seconds")
+        time.sleep(timeBetweenTasks)
+
+ # user Input_________________________________________
+print("How many tasks:", end = " ")
+numTasks = int(input())
+
+print("Time between tasks:", end = " ")
+
+timeBetweenTasks = float(input())
+
+print("Play tasks in random order?(if no, the tasks will be displayed in ordered entered)", end = ":")
+randomTaskOrder = strtobool(input())
+
+print("Have break interval(same as time between tasks)", end = ":")
+breakInterval = strtobool(input())
+
+print("Stop after specific amount of tasks", end = "?")
+stopAfterTasks = strtobool(input())
+if(stopAfterTasks == 1):
+    print("Stop after how many tasks", end = ":")
+    stopAfterTasks = int(input())
+else:
+    stopAfterTasks = 1000000
+
+
+
+ # loops_______________________________________________
+while (counterAskForTasks <= numTasks):
+    askForTasks()
+    taskNum += 1
+    counterAskForTasks += 1
+
+while True:
+    if randomTaskOrder == 1:
+        randomTask()
+    if randomTaskOrder == 0:
+        if counterSpecificTask == len(tasks) -1:
+            counterSpecificTask = counterSpecificTask - len(tasks)
+
+        if counterSpecificTask < len(tasks) - 1:
+            counterSpecificTask +=1
+
+        specificTask(counterSpecificTask)
+    taskCounter += 1
+    if(taskCounter >= stopAfterTasks):
+        break
