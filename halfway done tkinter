@@ -1,0 +1,89 @@
+import tkinter as tk
+import time
+
+HEIGHT = 700
+WIDTH = 800
+
+tasks = []
+numTasks = 0
+timeBetweenTasks = 0
+counterAskForTasks = 1
+taskNum = 1
+
+
+def appendTask(taskStr):
+    tasks.append(taskStr)
+
+def askForTasks(frame4, taskNum1):
+    taskEntry = tk.Entry(frame4, font=40)
+    taskEntry.place(relwidth=0.65, relheight=1)
+
+    taskNum1 = str(taskNum1)
+
+    button4 = tk.Button(frame4, text="submit task " + taskNum1, command=lambda: taskEntry.get())
+    button4.place(relx = 0.7, relwidth = 0.3, relheight = 1)
+
+
+
+def makeTaskEntries(numTasks, timeBetweenTasks, taskNum, counterAskForTasks):
+    if (numTasks != 0 and timeBetweenTasks != 0):
+        frame4 = tk.Frame(root, bg='#80c1ff', bd=5)
+        frame4.place(relx=0.5, rely=0.55, relwidth=0.75, relheight=0.1, anchor='n')
+
+
+        while (counterAskForTasks <= numTasks):
+            askForTasks(frame4, taskNum)
+            print(taskNum)
+            print(counterAskForTasks)
+            print(numTasks)
+            taskNum +=1
+            counterAskForTasks += 1
+
+
+
+def getAllInputs(taskEntry, timeEntry, taskNum, counterAskForTasks):
+    print("tasks:", taskEntry, "time between tasks:", timeEntry)
+    numTasks = int(taskEntry)
+    timeBetweenTasks = float(timeEntry)
+    makeTaskEntries(numTasks, timeBetweenTasks, taskNum, counterAskForTasks)
+
+
+
+
+root = tk.Tk()
+
+canvas = tk.Canvas(root, height = HEIGHT, width = WIDTH)
+canvas.pack()
+
+frame1 = tk.Frame(root, bg = '#80c1ff', bd = 5)
+frame1.place(relx = 0.5, rely = 0.1, relwidth = 0.75, relheight = 0.1, anchor ='n')
+
+entry = tk.Entry(frame1, font = 40)
+entry.place(relwidth = 0.65, relheight = 1)
+
+label = tk.Label(frame1, text = "Number of tasks")
+label.place(relx = 0.7, relwidth = 0.3, relheight = 1)
+
+
+frame2 = tk.Frame(root, bg = '#80c1ff', bd = 5)
+frame2.place(relx = 0.5, rely = 0.25, relwidth = 0.75, relheight = 0.1, anchor ='n')
+
+entry2 = tk.Entry(frame2, font = 40)
+entry2.place(relwidth = 0.65, relheight = 1)
+
+label2 = tk.Label(frame2, text = "Time for Tasks")
+label2.place(relx = 0.7, relwidth = 0.3, relheight = 1)
+
+
+frame3 = tk.Frame(root, bg = '#80c1ff', bd = 5)
+frame3.place(relx = 0.25, rely = 0.4, relwidth = 0.25, relheight = 0.1, anchor ='n')
+
+button3 = tk.Button(frame3, text = "submit tasks and time", command =lambda: getAllInputs(entry.get(), entry2.get(), taskNum, counterAskForTasks))
+button3.place(relx = 0.5, relwidth = 1, relheight = 1, anchor = 'n')
+
+
+
+
+
+
+root.mainloop()
