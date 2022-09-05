@@ -1,0 +1,123 @@
+import tkinter as tk
+import time
+import random
+
+HEIGHT = 700
+WIDTH = 800
+
+choiceOrder = []
+tasks = []
+numTasks = 0
+timeBetweenTasks = 0
+taskNum = 1
+counterTaskDisplay = 0
+relativex = 0
+relativey = 0
+choiceOrderCounter = 0
+
+def pause(secs):
+    init_time = time.time()
+    while time.time() < init_time+secs: pass
+
+def tellTask(frame, timeBetweenTasks, choice, label4):
+    label4['text'] = (choice, "for", timeBetweenTasks, "seconds")
+    root.update()
+
+def randomTask(timeBetweenTasks, frame, label4):
+    while (timeBetweenTasks != 0):
+        choice = random.choice(tasks)
+        print(choice,"for", timeBetweenTasks,"seconds")
+        tellTask(frame, timeBetweenTasks, choice, label4)
+        pause(timeBetweenTasks)
+
+def showTasks(frame, relativex, relativey):
+    displayCounter = 0
+    for x in tasks:
+        label4 = tk.Label(frame, text=x)
+        label4.place(relx=relativex,rely =relativey, relwidth=.1, relheight=.1)
+        relativex += .1
+        displayCounter += 1
+        if(displayCounter >= 10):
+            relativey += 0.1
+            displayCounter = 0
+            relativex = 0
+
+def appendTask(taskStr, frame, relativex, relativey, taskEntry):
+    tasks.append(taskStr)
+    showTasks(frame, relativex, relativey)
+    taskEntry.delete(0, tk.END)
+
+def makeTaskEntries(timeBetweenTasks, relativex, relativey):
+    if (timeBetweenTasks != 0):
+        frame4 = tk.Frame(root, bg='#80c1ff', bd=5)
+        frame4.place(relx=0.5, rely=0.1, relwidth=0.75, relheight=0.1, anchor='n')
+
+        taskEntry = tk.Entry(frame4, font=40)
+        taskEntry.place(relwidth=0.65, relheight=1)
+
+
+        frame5 = tk.Frame(root, bg='#80c1ff', bd=5)
+        frame5.place(relx=0.5, rely=0.2, relwidth=0.25, relheight=0.05, anchor='n')
+
+        label3 = tk.Label(frame5, text="Tasks:")
+        label3.place(relx=0, relwidth=1, relheight=1)
+
+        frame6 = tk.Frame(root, bg='#80c1ff', bd=5)
+        frame6.place(relx=0.5, rely=0.25, relwidth=0.75, relheight=0.2, anchor='n')
+
+        button4 = tk.Button(frame4, text="submit task ", command=lambda: appendTask(taskEntry.get(), frame6, relativex, relativey, taskEntry))
+        button4.place(relx = 0.7, relwidth = 0.3, relheight = 1)
+
+        frame7 = tk.Frame(root, bg='#80c1ff', bd=5)
+        frame7.place(relx=0.25, rely=0.5, relwidth=0.25, relheight=0.1, anchor='n')
+
+        button5 = tk.Button(frame7, text="start", command = lambda: randomTask(timeBetweenTasks, frame8, label4))
+        button5.place(relx=0, relwidth=1, relheight=1)
+
+        frame8 = tk.Frame(root, bg='#80c1ff', bd=5)
+        frame8.place(relx=0.5, rely=0.65, relwidth=0.75, relheight=0.2, anchor='n')
+
+        label4 = tk.Label(frame8, text=("Task and time will appear here"), font=40)
+        label4.place(relx=0, relwidth=1, relheight=1)
+
+def getAllInputs(timeEntry, relativex, relativey):
+    timeBetweenTasks = float(timeEntry)
+    print(timeBetweenTasks)
+    makeTaskEntries(timeBetweenTasks, relativex, relativey)
+
+    frame2.pack_forget()
+    frame2.destroy()
+
+    frame3.pack_forget()
+    frame3.destroy()
+
+
+
+
+
+root = tk.Tk()
+
+canvas = tk.Canvas(root, height = HEIGHT, width = WIDTH)
+canvas.pack()
+
+
+
+frame2 = tk.Frame(root, bg = '#80c1ff', bd = 5)
+frame2.place(relx = 0.5, rely = 0.1, relwidth = 0.75, relheight = 0.1, anchor ='n')
+
+entry2 = tk.Entry(frame2, font = 40)
+entry2.place(relwidth = 0.65, relheight = 1)
+
+label2 = tk.Label(frame2, text = "Time for Tasks")
+label2.place(relx = 0.7, relwidth = 0.3, relheight = 1)
+
+
+frame3 = tk.Frame(root, bg = '#80c1ff', bd = 5)
+frame3.place(relx = 0.25, rely = 0.25, relwidth = 0.25, relheight = 0.1, anchor ='n')
+
+button3 = tk.Button(frame3, text = "time for tasks", command =lambda: getAllInputs(entry2.get(), relativex, relativey))
+button3.place(relx = 0.5, relwidth = 1, relheight = 1, anchor = 'n')
+
+
+
+root.mainloop()
