@@ -32,8 +32,11 @@ def specificTask():
     #        pause(breakTime)
     print("specific")
 
-def randomTask():
-    print("random task")
+def randomTask(timeBetweenTasks):
+    while (True):
+        choice = random.choice(tasks)
+        pause(timeBetweenTasks)
+        print(choice)
 
 def pause(secs):
     init_time = time.time()
@@ -59,6 +62,7 @@ def getAllInputs():
 def nextFunction(entry2, taskEntry, entry3, random):
     if entry2 != 0:
         timeBetweenTasks = entry2
+        print(timeBetweenTasks)
     if taskEntry != 0:
         tasks.append(taskEntry)
     if entry3 != 0:
@@ -68,7 +72,9 @@ def nextFunction(entry2, taskEntry, entry3, random):
 
 
     if randomOrder == True:
-        randomTask()
+        print(timeBetweenTasks)
+        randomTask(timeBetweenTasks)
+
 
     if randomOrder == False:
         specificTask()
