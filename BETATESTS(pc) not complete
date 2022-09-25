@@ -7,6 +7,8 @@ HEIGHT = 700
 WIDTH = 800
 
 tasks = []
+randomOrder = 0
+timeBetweenTasks = 0
 relativex = 0
 relativey = 0
 counterSpecificTask = -1
@@ -33,10 +35,10 @@ def specificTask():
     print("specific")
 
 def randomTask(timeBetweenTasks):
-    while (True):
-        choice = random.choice(tasks)
-        pause(timeBetweenTasks)
-        print(choice)
+   # while (True):
+   # choice = random.choice(tasks)
+    #pause(timeBetweenTasks)
+    print("random")
 
 def pause(secs):
     init_time = time.time()
@@ -59,29 +61,43 @@ def getAllInputs():
     #timeBetweenTasks = float(timeEntry)
     yes = 1
 
-def nextFunction(entry2, taskEntry, entry3, random):
+def nextFunction(entry2, entry3, random1, label4):
     if entry2 != 0:
         timeBetweenTasks = entry2
-        print(timeBetweenTasks)
-    if taskEntry != 0:
-        tasks.append(taskEntry)
     if entry3 != 0:
         breakTime = entry3
-    if random != 2:
-        randomOrder = random
+    if random1 != 2:
+        randomOrder = random1
+        if(randomOrder == True):
+            while(True):
+                choice = random.choice(tasks)
+                #tellTask(timeBetweenTasks, choice, label4)
+               # pause(timeBetweenTasks)
+                print(choice)
+                time.sleep(timeBetweenTasks)
 
 
-    if randomOrder == True:
-        print(timeBetweenTasks)
-        randomTask(timeBetweenTasks)
+              #  if breakTime == "":
+                #    breakTime = 0
+               # breakTime = float(breakTime)
+             #  if (breakTime <= 0 or breakTime == ""):
+              #      print("no break", breakTime)
+              #  if (breakTime > 0):
+              #      tellTask(breakTime, "BREAK", label4)
+              #      pause(breakTime)
 
 
-    if randomOrder == False:
-        specificTask()
 
 
 
 
+
+
+
+
+
+def appendTask(taskEntry):
+    tasks.append(taskEntry)
 
 
 
@@ -97,7 +113,7 @@ frame2.place(relx = 0.5, rely = 0, relwidth = 0.75, relheight = 0.1, anchor ='n'
 entry2 = tk.Entry(frame2, font = 40)
 entry2.place(relwidth = 0.65, relheight = 1)
 
-button2 = tk.Button(frame2, text = "Time for Tasks", command = lambda: nextFunction(entry2.get(), 0, 0, 2))
+button2 = tk.Button(frame2, text = "Time for Tasks", command = lambda: nextFunction(entry2.get(), 0, 2, label4))
 button2.place(relx = 0.7, relwidth = 0.3, relheight = 1)
 
 frame4 = tk.Frame(root, bg='#80c1ff', bd=5)
@@ -115,13 +131,13 @@ label3.place(relx=0, relwidth=1, relheight=1)
 frame6 = tk.Frame(root, bg='#80c1ff', bd=5)
 frame6.place(relx=0.5, rely=0.25, relwidth=0.75, relheight=0.2, anchor='n')
 
-button4 = tk.Button(frame4, text="submit task ", command=lambda: nextFunction(0, taskEntry.get(), 0, 2))
+button4 = tk.Button(frame4, text="submit task ", command=lambda: appendTask(taskEntry.get()))
 button4.place(relx = 0.7, relwidth = 0.3, relheight = 1)
 
 frame7 = tk.Frame(root, bg='#80c1ff', bd=5)
 frame7.place(relx=0.25, rely=0.5, relwidth=0.25, relheight=0.1, anchor='n')
 
-button5 = tk.Button(frame7, text="play tasks in random order", command = lambda: nextFunction(0, 0, entry3.get(), True))
+button5 = tk.Button(frame7, text="play tasks in random order", command = lambda: nextFunction(0, entry3.get(), True, label4))
 button5.place(relx=0, relwidth=1, relheight=1)
 
 frame8 = tk.Frame(root, bg='#80c1ff', bd=5)
@@ -133,7 +149,7 @@ label4.place(relx=0, relwidth=1, relheight=1)
 frame9 = tk.Frame(root, bg='#80c1ff', bd=5)
 frame9.place(relx=0.5, rely=0.5, relwidth=0.25, relheight=0.1, anchor='n')
 
-button5 = tk.Button(frame9, text="Play tasks in specific order", command=lambda: nextFunction(0, 0, entry3.get(), False))
+button5 = tk.Button(frame9, text="Play tasks in specific order", command=lambda: nextFunction(0, entry3.get(), False, label4))
 button5.place(relx=0, relwidth=1, relheight=1)
 
 frame10 = tk.Frame(root, bg='#80c1ff', bd=5)
@@ -147,6 +163,9 @@ frame11.place(relx=0.75, rely=0.45, relwidth=0.25, relheight=0.05, anchor='n')
 
 label5 = tk.Label(frame11, text="Break time:")
 label5.place(relx=0, relwidth=1, relheight=1)
+
+testButton = tk.Button(frame11, text = "testButton", command = lambda: testFunction())
+testButton.place(relx = 0, relwidth = 1, relheight = 1)
 
 
 
