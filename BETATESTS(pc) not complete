@@ -13,26 +13,27 @@ counterSpecificTask = -1
 
 
 
-def specificTask(timeBetweenTasks, breakTime):
-    counter = -1
-    while (timeBetweenTasks != 0):
-        if (counter == len(tasks) - 1):
-            counter = counter - len(tasks)
-        if counter < len(tasks) - 1:
-            counter += 1
-        tellTask(timeBetweenTasks, tasks[counter], label4)
-        pause(timeBetweenTasks)
-        if breakTime == "":
-            breakTime = 0
-        breakTime = float(breakTime)
-        if (breakTime <= 0):
-            print("no break", breakTime)
-        if (breakTime > 0):
-            tellTask(breakTime, "BREAK", label4)
-            pause(breakTime)
+def specificTask():
+    #counter = -1
+   # while (timeBetweenTasks != 0):
+   #     if (counter == len(tasks) - 1):
+   #         counter = counter - len(tasks)
+    #    if counter < len(tasks) - 1:
+    #        counter += 1
+    #    tellTask(timeBetweenTasks, tasks[counter], label4)
+     #   pause(timeBetweenTasks)
+     #   if breakTime == "":
+   #         breakTime = 0
+   #     breakTime = float(breakTime)
+   #     if (breakTime <= 0):
+    #        print("no break", breakTime)
+   #     if (breakTime > 0):
+    #        tellTask(breakTime, "BREAK", label4)
+    #        pause(breakTime)
+    print("specific")
 
 def randomTask():
-    yes = 1
+    print("random task")
 
 def pause(secs):
     init_time = time.time()
@@ -58,25 +59,19 @@ def getAllInputs():
 def nextFunction(entry2, taskEntry, entry3, random):
     if entry2 != 0:
         timeBetweenTasks = entry2
-        print(timeBetweenTasks)
     if taskEntry != 0:
         tasks.append(taskEntry)
-        print(tasks)
     if entry3 != 0:
         breakTime = entry3
-        print(breakTime)
     if random != 2:
         randomOrder = random
-        print(randomOrder)
 
 
+    if randomOrder == True:
+        randomTask()
 
-   # if random == True:
-      #  lambda: randomTask()
-
-    #if random == False:
-      #  lambda: specificTask(timeBetweenTasks, breakTime)
-
+    if randomOrder == False:
+        specificTask()
 
 
 
